@@ -15,6 +15,10 @@ export default function Home()
 
   const [mipaRijal, setMipaRijal] = useState([]);
 
+  const [mipaNisa, setMipaNisa] = useState([]);
+
+  const [ipsNisa, setIpsNisa] = useState([]);
+
   const setClass = () =>{
     var class1 = [];
     for (let index = 1; index <= 15; index++) {
@@ -22,6 +26,12 @@ export default function Home()
       class1.push(cc)
     }
     setStudentClass(class1)
+    var class2 = [];
+    for (let index = 65; index < 78; index++) {
+      const cc = `12S.${String.fromCharCode(index)}`
+      class2.push(cc)
+    }
+    setIpsNisa(class2);
   }
 
   const setMipaAClass = () =>{
@@ -31,6 +41,12 @@ export default function Home()
       class2.push(cc);
     }
     setMipaRijal(class2);
+    var class3 = [];
+    for (let index = 65; index < 77; index++) {
+      const cc = `12A.${String.fromCharCode(index)}`
+      class3.push(cc);
+    }
+    setMipaNisa(class3);
   }
 
   const getData = async () =>{
@@ -183,6 +199,29 @@ export default function Home()
                       
                     </ul>
                   </div>
+
+
+                  <div className="dropdown">
+                    <div tabIndex={0} role="button" className="btn m-1 btn-sm">IPS A - M</div>
+                    <ul tabIndex={0} className="dropdown-content menu bg-slate-500 h-52 overflow-auto rounded-box z-[1] w-52 p-2 shadow">
+                      <li><button onClick={()=> classFilter('all')} type="button" className="btn btn-ghost btn-sm text-white">All</button></li>
+                      {ipsNisa.map((item,index)=>(
+                        <li key={index}onClick={()=> classFilter(item)} ><a  className="btn btn-ghost btn-sm text-white">{item}</a></li>
+                      ))}
+                      
+                    </ul>
+                  </div>
+
+                  <div className="dropdown">
+                    <div tabIndex={0} role="button" className="btn m-1 btn-sm">MIPA A - L</div>
+                    <ul tabIndex={0} className="dropdown-content menu bg-slate-500 h-52 overflow-auto rounded-box z-[1] w-52 p-2 shadow">
+                      <li><button onClick={()=> classFilter('all')} type="button" className="btn btn-ghost btn-sm text-white">All</button></li>
+                      {mipaNisa.map((item,index)=>(
+                        <li key={index}onClick={()=> classFilter(item)} ><a  className="btn btn-ghost btn-sm text-white">{item}</a></li>
+                      ))}
+                      
+                    </ul>
+                  </div>
                 
                 </div>
                 {/* Open the modal using document.getElementById('ID').showModal() method */}
@@ -218,6 +257,7 @@ export default function Home()
                     
                   />
                 </div>
+                <p className="text-center text-sm"><i>*Data ini berdasarkan data pembayaran buku tahunan dan kaos pada akhir semester kelas 12</i></p>
                 {/* <div className="overflow-x-auto">
                     <table className="table table-xs table-zebra">
                         <thead>
@@ -291,6 +331,30 @@ export default function Home()
                         </tfoot>
                     </table>
                 </div> */}
+                <div className="px-2 mx-auto">
+                  <h3 className="font-semibold text-center my-7" >FAQ</h3>
+                  <div className="collapse collapse-arrow bg-base-200 my-2">
+                    <input type="radio" name="my-accordion-2" defaultChecked />
+                    <div className="collapse-title text-xl font-medium">Bagimana cara filter data per kelas nya?</div>
+                    <div className="collapse-content">
+                      <p>Ini bisa dilakukan dengan mengklik tombol filter kelas berdasarkan pengelompokkan kelas di atas. Jika ingin berpindah filter, klik <code>All</code> supaya semua data akan muncul.</p>
+                    </div>
+                  </div>
+                  <div className="collapse collapse-arrow bg-base-200 my-2">
+                    <input type="radio" name="my-accordion-2" />
+                    <div className="collapse-title text-xl font-medium">Bagaimana mengeceknya jika data sudah diisi?</div>
+                    <div className="collapse-content">
+                      <p>Hal ini bisa dilakkan dengan mengecek kembali data Anda dengan mencarinya berdasarkan <code>No Induk</code> atau dengan filter kelas </p>
+                    </div>
+                  </div>
+                  <div className="collapse collapse-arrow bg-base-200 my-2">
+                    <input type="radio" name="my-accordion-2" />
+                    <div className="collapse-title text-xl font-medium">Bagaimana jika data saya tidak ada?</div>
+                    <div className="collapse-content">
+                      <p>Jika data Anda tidak ada, silahkan hubungi MPK </p>
+                    </div>
+                  </div>
+                </div>
             </div>
         </>
     )

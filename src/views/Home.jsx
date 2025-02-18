@@ -10,6 +10,8 @@ export default function Home()
   const [koordinator, setKoordinator] = useState('');
   const [ukuranKaos, setUkuranKaos] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [jmlDone, setJmlDone] = useState(0);
+  const [percentDone, setPercentDone] = useState(0);
 
   const [studetnClass, setStudentClass] = useState([]);
 
@@ -49,11 +51,37 @@ export default function Home()
     setMipaNisa(class3);
   }
 
+  const getCount =()=> {
+    var dt = 0;
+    var tr = 0;
+    dataStudent.map((item, index)=>{
+      if(item.ukuranKaos != ''){
+        dt++;
+      }
+    })
+    const persen = (dt/dataStudent.length)*100;
+    setJmlDone(dt);
+    setPercentDone(persen);
+  }
+
   const getData = async () =>{
 
   const response = await getDocs(collection(db,'students'));
-    setDataStudent(response.docs.map(doc => ({...doc.data(), id: doc.id})));
+  const data = response.docs.map((doc) => ({ ...doc.data(), id: doc.id}));
+    setDataStudent(data);
+    var dt = 0;
+    var tr = 0;
+    data.map((item, index)=>{
+      if(item.ukuranKaos != ''){
+        dt++;
+      }
+    })
+    const persen = (dt/dataStudent.length)*100;
+    setJmlDone(dt);
+    setPercentDone(persen);
   }
+
+
 
   const columns = [
     {name : 'No Induk', selector : row => row.noInduk, sortable : true },
@@ -151,6 +179,7 @@ export default function Home()
       getData();
       setClass();
       setMipaAClass();
+      
   },[])
 
     return (
@@ -160,6 +189,19 @@ export default function Home()
             </div>
             {/* Open the modal using document.getElementById('ID').showModal() method */}
             <div className="mx-auto max-w-screen-md p-3">
+              <div className="flex flex-wrap justify-center">
+                <div className="card bg-base-100 w-96 shadow-xl">
+                  <div className="card-body">
+                    <h2 className="card-title">Summary!</h2>
+                    <p>Persentase yang sudah mengisi </p>
+                  </div>
+                  <p className="fw-bold text-center mb-4">{jmlDone} / 716 = <span className="text-success">{percentDone.toFixed(1)}%</span></p>
+                  {/* <progress className="progress progress-success w-56 h-10 self-center my-4" value={percentDone} max="100"></progress> */}
+                  {/* <div className="radial-progress text-success self-center" style={{ "--value": percentDone }} role="progressbar">
+                    { percentDone.toFixed(1) }%
+                  </div> */}
+                </div>
+              </div>
                 <div className="flex my-4 items-center flex-wrap flex-row">
                 
                   <label className="input input-bordered flex items-center gap-2">

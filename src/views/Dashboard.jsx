@@ -46,6 +46,16 @@ export default function Dashboard()
         reader.readAsArrayBuffer(file);
       };
 
+    //function untuk export xls
+    const exportToExcel = () => {
+        const worksheet = XLSX.utils.json_to_sheet(dataStudent);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+      
+        XLSX.writeFile(workbook, "data.xlsx");
+      };
+      
+
     const getData = async () =>{
         const response = await getDocs(collection(db,'students'));
         setDataStudent(response.docs.map(doc => ({...doc.data(), id: doc.id})));
@@ -67,6 +77,7 @@ export default function Dashboard()
                     <Link to={'/'} className="btn btn-secondary" >Kembali</Link>
                     {/* <button className="btn btn-primary m-1" onClick={()=>document.getElementById('modalAddFromFile').showModal()}>Tambah File</button> */}
                     <button type="button" className="btn m-1 btn-success" onClick={()=> document.getElementById('modalAddOne').showModal()}>Tambah Data</button>
+                    <button type="button" onClick={()=> exportToExcel()} className="btn btn-primary">Export</button>
                 </div>
                 <dialog id="modalAddFromFile" className="modal modal-bottom sm:modal-middle">
                     <div className="modal-box">
@@ -110,7 +121,7 @@ export default function Dashboard()
                         </div>
                     </div>
                 </dialog>
-                <div className="overflow-x-auto">
+                <div className="overflow-x-hidden">
                     <table className="table table-md">
                         <thead>
                         <tr>
@@ -124,7 +135,7 @@ export default function Dashboard()
                         </tr>
                         </thead>
                         <tbody>
-                        {dataStudent != null ? 
+                        {
                         
                         dataStudent.map((item, index)=>(
                             <tr key={index} >
@@ -138,27 +149,9 @@ export default function Dashboard()
                             </tr>
                         ))
                         
-                        : (
-                            <tr>
-                                <th>1</th>
-                                <td>Cy Ganderton</td>
-                                <td>Quality Control Specialist</td>
-                                <td>Littel, Schaden and Vandervort</td>
-                                <td>Jabar</td>
-                                <td>XL</td>
-                                <td>Jabar</td>
-                            </tr>
-                        )}
+                        }
                         </tbody>
-                        <tfoot>
-                        <tr>
-                            <th></th>
-                            <th>Name</th>
-                            <th>Job</th>
-                            <th>company</th>
-                            <th>location</th>
-                        </tr>
-                        </tfoot>
+                       
                     </table>
                 </div>
             </div>

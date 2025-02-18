@@ -6,10 +6,19 @@ import { where } from "firebase/firestore";
 
 export default function Home()
 {
+
+  //membuat use state
+
+  //use state data student
   const [dataStudent, setDataStudent] = useState([]);
+
+  //useState data koordinator
   const [koordinator, setKoordinator] = useState('');
+
   const [ukuranKaos, setUkuranKaos] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [jenisKaos, setJenisKaos] = useState('Pendek');
+  const [boolKaos, setBoolKaos] = useState(true);
   const [jmlDone, setJmlDone] = useState(0);
   const [percentDone, setPercentDone] = useState(0);
 
@@ -21,6 +30,7 @@ export default function Home()
 
   const [ipsNisa, setIpsNisa] = useState([]);
 
+  //function untuk membuat list kelas IPS
   const setClass = () =>{
     var class1 = [];
     for (let index = 1; index <= 15; index++) {
@@ -36,6 +46,7 @@ export default function Home()
     setIpsNisa(class2);
   }
 
+  //function untuk membuat list kelas MIPA
   const setMipaAClass = () =>{
     var class2 = [];
     for (let index = 1; index <= 10; index++) {
@@ -51,44 +62,42 @@ export default function Home()
     setMipaNisa(class3);
   }
 
-  const getCount =()=> {
-    var dt = 0;
-    var tr = 0;
-    dataStudent.map((item, index)=>{
-      if(item.ukuranKaos != ''){
-        dt++;
-      }
-    })
-    const persen = (dt/dataStudent.length)*100;
-    setJmlDone(dt);
-    setPercentDone(persen);
-  }
-
+//function untuk mengambil data ke database firestore
   const getData = async () =>{
 
-  const response = await getDocs(collection(db,'students'));
-  const data = response.docs.map((doc) => ({ ...doc.data(), id: doc.id}));
-    setDataStudent(data);
-    var dt = 0;
-    var tr = 0;
-    data.map((item, index)=>{
-      if(item.ukuranKaos != ''){
-        dt++;
-      }
-    })
-    const persen = (dt/dataStudent.length)*100;
-    setJmlDone(dt);
-    setPercentDone(persen);
+    const response = await getDocs(collection(db,'students'));
+    const data = response.docs.map((doc) => ({ ...doc.data(), id: doc.id}));
+      setDataStudent(data);
+      var dt = 0;
+      var tr = 0;
+      await data.map((item, index)=>{
+        if(item.ukuranKaos != ''){
+          dt++;
+        }
+      })
+      const persen = (dt/dataStudent.length)*100;
+      setJmlDone(dt);
+      setPercentDone(persen);
+  }
+
+  const setKaos = (e) => {
+    if(e == true)
+    {
+      setJenisKaos('Pendek')
+    }else{
+      setJenisKaos('Panjang')
+    }
   }
 
 
-
+  //mendefinisikan columns untuk data table
   const columns = [
     {name : 'No Induk', selector : row => row.noInduk, sortable : true },
     {name : 'Nama', selector : row => row.nama, sortable : true , grow : 2},
     {name : 'Kelas', selector : row => row.kodeKelas, sortable : true },
     {name : 'Koordinator', selector : row=> row.koordinator},
     {name : 'Ukuran Kaos', selector : row => row.ukuranKaos, sortable : true },
+    {name : 'Jenis Kaos', selector : row=> row.jenisKaos },
     {name : 'Aksi', selector : row => (
       <>
         <button type="button" key={row.id} onClick={()=> {
@@ -124,6 +133,15 @@ export default function Home()
                   </div>
                   <input type="text" placeholder={ukuranKaos != '' ? `${ukuranKaos}` : 'Masukkan ukuran kaos Anda'} value={ukuranKaos} onChange={(e)=> setUkuranKaos(e.target.value)} id={`admiral-${row.nama}`} className="input input-bordered w-full input-sm max-w-xs text-white" />
                 </label>
+                <div class="form-control w-full text-center">
+                  <label class="label cursor-pointer">
+                    <span class="label-text">Jenis Kaos</span>
+                  </label>
+                  <select className="select select-bordered w-full max-w-xs text-white" value={jenisKaos} onChange={(e)=> setJenisKaos(e.target.value)}>
+                    <option className="" value="Pendek" >Pendek</option>
+                    <option value="Panjang" >Panjang</option>
+                  </select>
+                </div>
               
               <div className="modal-action">
                 <form method="dialog">
@@ -137,6 +155,7 @@ export default function Home()
     ) },
   ];
 
+  //function untuk melakukan search
   const search = async (e) =>{
     setSearchQuery(e.target.value);
     var response = await getDocs(query(collection(db,'students'),where('noInduk','==',e.target.value)));
@@ -145,10 +164,12 @@ export default function Home()
     // setDataStudent(dataStudent.map((student)=> student.noInduk === e.target.value ? {...student, noInduk: e.target.value} : student));
   }
 
+  //function untuk update data
   const updateData = async (id) => {
     await updateDoc(doc(db, 'students',id),{
       koordinator: koordinator,
-      ukuranKaos: ukuranKaos
+      ukuranKaos: ukuranKaos,
+      jenisKaos : jenisKaos
     });
     setKoordinator('');
     setUkuranKaos('');
@@ -156,6 +177,7 @@ export default function Home()
     // setDataStudent(dataStudent.map((student) => student.id === id ? { ...student, nama
     //   : student}));
     setSearchQuery('')
+    setJenisKaos('Pendek')
     getData();
   }
   const setNull =()=>{
@@ -163,6 +185,7 @@ export default function Home()
     setUkuranKaos('');
     getData();
     setSearchQuery('');
+    setJenisKaos("Pendek")
   }
 
   const classFilter = (key) =>{

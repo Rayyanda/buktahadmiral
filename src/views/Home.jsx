@@ -89,7 +89,7 @@ export default function Home()
       var other = 0;
       data.map((item, index)=>{
         switch (item.ukuranKaos.toLowerCase()) {
-          case 'xxl':
+          case 'xxxl':
             xxxl++;
             break;
 

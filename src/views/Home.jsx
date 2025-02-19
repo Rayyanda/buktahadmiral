@@ -15,10 +15,12 @@ export default function Home()
   //useState data koordinator
   const [koordinator, setKoordinator] = useState('');
 
+  const [domisili, setDomisili] = useState('');
+
   const [ukuranKaos, setUkuranKaos] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [jenisKaos, setJenisKaos] = useState('Pendek');
-  const [boolKaos, setBoolKaos] = useState(true);
+  const [totalUkuran, setTotalUkuran] = useState([]);
   const [jmlDone, setJmlDone] = useState(0);
   const [percentDone, setPercentDone] = useState(0);
 
@@ -78,6 +80,38 @@ export default function Home()
       const persen = (dt/dataStudent.length)*100;
       setJmlDone(dt);
       setPercentDone(persen);
+      var xl = 0;
+      var l = 0;
+      var m = 0;
+      var s = 0;
+      var other = 0;
+      data.map((item, index)=>{
+        switch (item.ukuranKaos.toLowerCase()) {
+          case 'xl':
+            xl++
+            break;
+          case 'l':
+            l++
+            break;
+          case 'm':
+            m++;
+            break;
+          case 's':
+            s++;
+            break;
+        
+          default:
+            other++;
+            break;
+        }
+        setTotalUkuran([
+          {'ukuran': 'XL', 'total': xl, 'persen': (xl/716)*100},
+          {'ukuran': 'L', 'total': l,'persen': (l/716)*100},
+          {'ukuran': 'M', 'total': m,'persen': (m/716)*100},
+          {'ukuran': 'S', 'total': s,'persen': (s/716)*100},
+          {'ukuran': 'lainnya', 'total': other,'persen': (other/716)*100}
+        ])
+      })
   }
 
   const setKaos = (e) => {
@@ -96,6 +130,7 @@ export default function Home()
     {name : 'Nama', selector : row => row.nama, sortable : true , grow : 2},
     {name : 'Kelas', selector : row => row.kodeKelas, sortable : true },
     {name : 'Koordinator', selector : row=> row.koordinator},
+    {name : 'Domisili', selector : row=> row.domisili},
     {name : 'Ukuran Kaos', selector : row => row.ukuranKaos, sortable : true },
     {name : 'Jenis Kaos', selector : row=> row.jenisKaos },
     {name : 'Aksi', selector : row => (
@@ -104,6 +139,7 @@ export default function Home()
           document.getElementById(`modalUpdate-${row.id}`).showModal()
           setKoordinator(row.koordinator);
           setUkuranKaos(row.ukuranKaos);
+          setDomisili(row.domisili);
         }} className="btn btn-sm" >Edit</button>
         <dialog key={row.nama} id={`modalUpdate-${row.id}`} className="modal">
             <div className="modal-box">
@@ -129,13 +165,19 @@ export default function Home()
                 </label>
                 <label className="form-control w-full max-w-xs">
                   <div className="label">
+                    <span className="label-text text-sm">Domisili</span>
+                  </div>
+                  <input type="text" placeholder={domisili != ''? `${domisili}` : 'Masukkan Domisili Anda'} value={domisili} onChange={(e)=> setDomisili(e.target.value)} id={`admiral-${row.nama}`} className="input input-bordered w-full input-sm max-w-xs text-white"/>
+                </label>
+                <label className="form-control w-full max-w-xs">
+                  <div className="label">
                     <span className="label-text text-sm">Ukuran Kaos</span>
                   </div>
                   <input type="text" placeholder={ukuranKaos != '' ? `${ukuranKaos}` : 'Masukkan ukuran kaos Anda'} value={ukuranKaos} onChange={(e)=> setUkuranKaos(e.target.value)} id={`admiral-${row.nama}`} className="input input-bordered w-full input-sm max-w-xs text-white" />
                 </label>
                 <div class="form-control w-full text-center">
-                  <label class="label cursor-pointer">
-                    <span class="label-text">Jenis Kaos</span>
+                  <label className="label cursor-pointer">
+                    <span className="label-text">Jenis Kaos</span>
                   </label>
                   <select className="select select-bordered w-full max-w-xs text-white" value={jenisKaos} onChange={(e)=> setJenisKaos(e.target.value)}>
                     <option className="" value="Pendek" >Pendek</option>
@@ -167,6 +209,7 @@ export default function Home()
   //function untuk update data
   const updateData = async (id) => {
     await updateDoc(doc(db, 'students',id),{
+      domisili : domisili,
       koordinator: koordinator,
       ukuranKaos: ukuranKaos,
       jenisKaos : jenisKaos
@@ -178,6 +221,7 @@ export default function Home()
     //   : student}));
     setSearchQuery('')
     setJenisKaos('Pendek')
+    setDomisili('');
     getData();
   }
   const setNull =()=>{
@@ -185,7 +229,8 @@ export default function Home()
     setUkuranKaos('');
     getData();
     setSearchQuery('');
-    setJenisKaos("Pendek")
+    setJenisKaos("Pendek");
+    setDomisili('');
   }
 
   const classFilter = (key) =>{
@@ -213,16 +258,16 @@ export default function Home()
             {/* Open the modal using document.getElementById('ID').showModal() method */}
             <div className="mx-auto max-w-screen-md p-3">
               <div className="flex flex-wrap justify-center">
-                <div className="card bg-base-100 w-96 shadow-xl">
+                <div className="card bg-base-100 w-max shadow-xl">
                   <div className="card-body">
                     <h2 className="card-title">Summary!</h2>
-                    <p>Persentase yang sudah mengisi </p>
+                    <p>Persentase yang sudah mengisi : {jmlDone} / 716 = <span className="text-success">{percentDone.toFixed(1)}%</span></p>
+                    <hr />
+                    {totalUkuran.map((item, index)=>(
+                      <p key={index} >Persentase jumlah ukuran <span className="text-secondary font-semibold">{item.ukuran}</span> : {item.total} / 716 = <span className="text-success">{item.persen.toFixed(1)}%</span></p>
+                    ))}
+                    {/* <p>Persentase Jumlah Ukuran XL : {totalUkuran[0].total} / 716 = <span className="text-success">{(totalUkuran[0].persen)}%</span></p> */}
                   </div>
-                  <p className="fw-bold text-center mb-4">{jmlDone} / 716 = <span className="text-success">{percentDone.toFixed(1)}%</span></p>
-                  {/* <progress className="progress progress-success w-56 h-10 self-center my-4" value={percentDone} max="100"></progress> */}
-                  {/* <div className="radial-progress text-success self-center" style={{ "--value": percentDone }} role="progressbar">
-                    { percentDone.toFixed(1) }%
-                  </div> */}
                 </div>
               </div>
                 <div className="flex my-4 items-center flex-wrap flex-row">

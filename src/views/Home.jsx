@@ -80,6 +80,8 @@ export default function Home()
       const persen = (dt/dataStudent.length)*100;
       setJmlDone(dt);
       setPercentDone(persen);
+      var xxxl = 0;
+      var xxl = 0;
       var xl = 0;
       var l = 0;
       var m = 0;
@@ -87,6 +89,14 @@ export default function Home()
       var other = 0;
       data.map((item, index)=>{
         switch (item.ukuranKaos.toLowerCase()) {
+          case 'xxl':
+            xxxl++;
+            break;
+
+          case 'xxl':
+            xxl++;
+            break;
+
           case 'xl':
             xl++
             break;
@@ -105,6 +115,8 @@ export default function Home()
             break;
         }
         setTotalUkuran([
+          {'ukuran': 'XXXL', 'total': xxxl, 'persen': (xxxl/716)*100},
+          {'ukuran': 'XXL', 'total': xxl, 'persen': (xxl/716)*100},
           {'ukuran': 'XL', 'total': xl, 'persen': (xl/716)*100},
           {'ukuran': 'L', 'total': l,'persen': (l/716)*100},
           {'ukuran': 'M', 'total': m,'persen': (m/716)*100},

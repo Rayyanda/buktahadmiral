@@ -148,72 +148,72 @@ export default function Home()
     {name : 'Domisili', selector : row=> row.domisili},
     {name : 'Ukuran Kaos', selector : row => row.ukuranKaos, sortable : true },
     {name : 'Jenis Kaos', selector : row=> row.jenisKaos },
-    // {name : 'Aksi', selector: row=> (
-    // <>
-    //   <button type="button" onClick={()=> Swal.fire('Restricted','Akses edit telah ditutup.\nSilahkan hubungi MPK untuk informasi selanjutnya','error')} className="btn btn-ghost btn-outline btn-sm">Restricted</button>
-    // </>)}
-    {name : 'Aksi', selector : row => (
-      <>
-        <button type="button" key={row.id} onClick={()=> {
-          document.getElementById(`modalUpdate-${row.id}`).showModal()
-          setKoordinator(row.koordinator);
-          setUkuranKaos(row.ukuranKaos);
-          setDomisili(row.domisili);
-        }} className="btn btn-sm" >Edit</button>
-        <dialog key={row.nama} id={`modalUpdate-${row.id}`} className="modal">
-            <div className="modal-box">
-              <h3 className="font-bold text-lg text-white">Update Data</h3>
-              <hr />
-                <label className="form-control w-full max-w-xs">
-                  <div className="label">
-                    <span className="label-text text-sm">Nama</span>
-                  </div>
-                  <input type="text" placeholder="Type here" value={row.nama} id={`admiral-${row.nama}`} className="input input-bordered w-full input-sm max-w-xs" disabled />
-                </label>
-                <label className="form-control w-full max-w-xs">
-                  <div className="label">
-                    <span className="label-text text-sm">Kelas</span>
-                  </div>
-                  <input type="text" placeholder="Type here" value={row.kodeKelas} id={`admiral-${row.nama}`} className="input input-bordered w-full input-sm max-w-xs" disabled />
-                </label>
-                <label className="form-control w-full max-w-xs">
-                  <div className="label">
-                    <span className="label-text text-sm">Koordinator</span>
-                  </div>
-                  <input type="text" placeholder={koordinator != ''? `${koordinator}` : 'Masukkan koordinator Anda'} value={koordinator} onChange={(e)=> setKoordinator(e.target.value)} id={`admiral-${row.nama}`} className="input input-bordered w-full input-sm max-w-xs text-white"/>
-                </label>
-                <label className="form-control w-full max-w-xs">
-                  <div className="label">
-                    <span className="label-text text-sm">Domisili</span>
-                  </div>
-                  <input type="text" placeholder={domisili != ''? `${domisili}` : 'Masukkan Domisili Anda'} value={domisili} onChange={(e)=> setDomisili(e.target.value)} id={`admiral-${row.nama}`} className="input input-bordered w-full input-sm max-w-xs text-white"/>
-                </label>
-                <label className="form-control w-full max-w-xs">
-                  <div className="label">
-                    <span className="label-text text-sm">Ukuran Kaos</span>
-                  </div>
-                  <input type="text" placeholder={ukuranKaos != '' ? `${ukuranKaos}` : 'Masukkan ukuran kaos Anda'} value={ukuranKaos} onChange={(e)=> setUkuranKaos(e.target.value)} id={`admiral-${row.nama}`} className="input input-bordered w-full input-sm max-w-xs text-white" />
-                </label>
-                <div class="form-control w-full text-center">
-                  <label className="label cursor-pointer">
-                    <span className="label-text">Jenis Kaos</span>
-                  </label>
-                  <select className="select select-bordered w-full max-w-xs text-white" value={jenisKaos} onChange={(e)=> setJenisKaos(e.target.value)}>
-                    <option className="" value="Pendek" >Pendek</option>
-                    <option value="Panjang" >Panjang</option>
-                  </select>
-                </div>
+    {name : 'Aksi', selector: row=> (
+    <>
+      <button type="button" onClick={()=> Swal.fire('Restricted','Akses edit telah ditutup.\nSilahkan hubungi MPK untuk informasi selanjutnya','error')} className="btn btn-ghost btn-outline btn-sm">Closed</button>
+    </>)}
+    // {name : 'Aksi', selector : row => (
+    //   <>
+    //     <button type="button" key={row.id} onClick={()=> {
+    //       document.getElementById(`modalUpdate-${row.id}`).showModal()
+    //       setKoordinator(row.koordinator);
+    //       setUkuranKaos(row.ukuranKaos);
+    //       setDomisili(row.domisili);
+    //     }} className="btn btn-sm" >Edit</button>
+    //     <dialog key={row.nama} id={`modalUpdate-${row.id}`} className="modal">
+    //         <div className="modal-box">
+    //           <h3 className="font-bold text-lg text-white">Update Data</h3>
+    //           <hr />
+    //             <label className="form-control w-full max-w-xs">
+    //               <div className="label">
+    //                 <span className="label-text text-sm">Nama</span>
+    //               </div>
+    //               <input type="text" placeholder="Type here" value={row.nama} id={`admiral-${row.nama}`} className="input input-bordered w-full input-sm max-w-xs" disabled />
+    //             </label>
+    //             <label className="form-control w-full max-w-xs">
+    //               <div className="label">
+    //                 <span className="label-text text-sm">Kelas</span>
+    //               </div>
+    //               <input type="text" placeholder="Type here" value={row.kodeKelas} id={`admiral-${row.nama}`} className="input input-bordered w-full input-sm max-w-xs" disabled />
+    //             </label>
+    //             <label className="form-control w-full max-w-xs">
+    //               <div className="label">
+    //                 <span className="label-text text-sm">Koordinator</span>
+    //               </div>
+    //               <input type="text" placeholder={koordinator != ''? `${koordinator}` : 'Masukkan koordinator Anda'} value={koordinator} onChange={(e)=> setKoordinator(e.target.value)} id={`admiral-${row.nama}`} className="input input-bordered w-full input-sm max-w-xs text-white"/>
+    //             </label>
+    //             <label className="form-control w-full max-w-xs">
+    //               <div className="label">
+    //                 <span className="label-text text-sm">Domisili</span>
+    //               </div>
+    //               <input type="text" placeholder={domisili != ''? `${domisili}` : 'Masukkan Domisili Anda'} value={domisili} onChange={(e)=> setDomisili(e.target.value)} id={`admiral-${row.nama}`} className="input input-bordered w-full input-sm max-w-xs text-white"/>
+    //             </label>
+    //             <label className="form-control w-full max-w-xs">
+    //               <div className="label">
+    //                 <span className="label-text text-sm">Ukuran Kaos</span>
+    //               </div>
+    //               <input type="text" placeholder={ukuranKaos != '' ? `${ukuranKaos}` : 'Masukkan ukuran kaos Anda'} value={ukuranKaos} onChange={(e)=> setUkuranKaos(e.target.value)} id={`admiral-${row.nama}`} className="input input-bordered w-full input-sm max-w-xs text-white" />
+    //             </label>
+    //             <div class="form-control w-full text-center">
+    //               <label className="label cursor-pointer">
+    //                 <span className="label-text">Jenis Kaos</span>
+    //               </label>
+    //               <select className="select select-bordered w-full max-w-xs text-white" value={jenisKaos} onChange={(e)=> setJenisKaos(e.target.value)}>
+    //                 <option className="" value="Pendek" >Pendek</option>
+    //                 <option value="Panjang" >Panjang</option>
+    //               </select>
+    //             </div>
               
-              <div className="modal-action">
-                <form method="dialog">
-                  <button type="button" onClick={()=> updateData(row.id)} className="btn mx-2 btn-success">Simpan</button>
-                  <button onClick={()=> setNull()} className="btn">Close</button>
-                </form>
-              </div>
-            </div>
-          </dialog>
-      </>
-    ) },
+    //           <div className="modal-action">
+    //             <form method="dialog">
+    //               <button type="button" onClick={()=> updateData(row.id)} className="btn mx-2 btn-success">Simpan</button>
+    //               <button onClick={()=> setNull()} className="btn">Close</button>
+    //             </form>
+    //           </div>
+    //         </div>
+    //       </dialog>
+    //   </>
+    // ) },
   ];
 
   //function untuk melakukan search

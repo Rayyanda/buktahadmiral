@@ -17,8 +17,8 @@ export default function LandingPage()
                             terkait buku tahunan dan kaos angkatan Admiral.
                         </p>
                         <div className="flex flex-row justify-around">
-                            <Link className="btn  btn-primary btn-outline" >Preview Buktah</Link>
-                            <Link className="btn  btn-success btn-outline" >Preview Kaos</Link>
+                            <Link to={'/buktah'} className="btn  btn-primary btn-outline" >Preview Buktah</Link>
+                            <Link to={'/kaos'} className="btn  btn-success btn-outline" >Preview Kaos</Link>
                         </div>
                     </div>
                 </div>

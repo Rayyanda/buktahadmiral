@@ -4,6 +4,7 @@ import { db, collection, getDocs,updateDoc, doc, query } from "../lib/firebaseCo
 import { Link } from "react-router";
 import { where } from "firebase/firestore";
 import Swal from "sweetalert2";
+import Navbar from "./components/Navbar";
 
 export default function Home()
 {
@@ -148,10 +149,10 @@ export default function Home()
     {name : 'Domisili', selector : row=> row.domisili},
     {name : 'Ukuran Kaos', selector : row => row.ukuranKaos, sortable : true },
     {name : 'Jenis Kaos', selector : row=> row.jenisKaos },
-    {name : 'Aksi', selector: row=> (
-    <>
-      <button type="button" onClick={()=> Swal.fire('Restricted','Akses edit telah ditutup.\nSilahkan hubungi MPK untuk informasi selanjutnya','error')} className="btn btn-ghost btn-outline btn-sm">Closed</button>
-    </>)}
+    // {name : 'Aksi', selector: row=> (
+    // <>
+    //   <button type="button" onClick={()=> Swal.fire('Restricted','Akses edit telah ditutup.\nSilahkan hubungi MPK untuk informasi selanjutnya','error')} className="btn btn-ghost btn-outline btn-sm">Closed</button>
+    // </>)}
     // {name : 'Aksi', selector : row => (
     //   <>
     //     <button type="button" key={row.id} onClick={()=> {
@@ -277,13 +278,10 @@ export default function Home()
 
     return (
         <>
-          <div className="navbar bg-base-100 shadow-lg">
-                <a className="btn btn-ghost text-xl">Admiral</a>
-            </div>
             {/* Open the modal using document.getElementById('ID').showModal() method */}
             <div className="mx-auto max-w-screen-md p-3">
               <div className="flex flex-wrap justify-center">
-                <div className="card bg-base-100 w-max shadow-xl">
+                {/* <div className="card bg-base-100 w-max shadow-xl">
                   <div className="card-body">
                     <h2 className="card-title">Summary!</h2>
                     <p>Persentase yang sudah mengisi : {jmlDone} / 716 = <span className="text-success">{percentDone.toFixed(1)}%</span></p>
@@ -291,37 +289,10 @@ export default function Home()
                     {totalUkuran.map((item, index)=>(
                       <p key={index} >Persentase jumlah ukuran <span className="text-secondary font-semibold">{item.ukuran}</span> : {item.total} / 716 = <span className="text-success">{item.persen.toFixed(1)}%</span></p>
                     ))}
-                    {/* <hr />
-                    <p>Pengisian akan ditutup dalam :</p>
-                    <div className="flex gap-5">
-                      <div>
-                        <span className="countdown font-mono text-4xl">
-                            <span style={{"--value":15}}></span>
-                        </span>
-                        days
-                      </div>
-                      <div>
-                        <span className="countdown font-mono text-4xl">
-                            <span style={{"--value":10}}></span>
-                        </span>
-                        hours
-                      </div>
-                      <div>
-                        <span className="countdown font-mono text-4xl">
-                          <span style={{"--value":24}}></span>
-                        </span>
-                        min
-                      </div>
-                      <div>
-                        <span className="countdown font-mono text-4xl">
-                          <span style={{"--value":value}}></span>
-                        </span>
-                        sec
-                      </div>
-                    </div> */}
-                    {/* <p>Persentase Jumlah Ukuran XL : {totalUkuran[0].total} / 716 = <span className="text-success">{(totalUkuran[0].persen)}%</span></p> */}
+                    
+
                   </div>
-                </div>
+                </div> */}
               </div>
                 <div className="flex my-4 items-center flex-wrap flex-row">
                 

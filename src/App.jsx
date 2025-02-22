@@ -4,6 +4,8 @@ import viteLogo from '/vite.svg'
 import { Link } from 'react-router-dom'
 
 import RoutesIndex from './routes'
+import Navbar from './views/components/Navbar'
+import Footer from './views/components/Footer'
 //import './App.css'
 
 function App() {
@@ -11,7 +13,11 @@ function App() {
 
   return (
     <>
-      <RoutesIndex/>
+      <div className="artboard overflow-auto phone-5 h-auto mx-auto bg-slate-600">
+        <Navbar/>
+        <RoutesIndex/>
+        <Footer/>
+      </div>
     </>
   )
 }

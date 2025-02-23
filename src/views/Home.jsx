@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import { where } from "firebase/firestore";
 import Swal from "sweetalert2";
 import Navbar from "./components/Navbar";
+import { isMobile } from "react-device-detect";
 
 export default function Home()
 {
@@ -279,7 +280,7 @@ export default function Home()
     return (
         <>
             {/* Open the modal using document.getElementById('ID').showModal() method */}
-            <div className="mx-auto max-w-screen-md p-3">
+            <div className={isMobile ? 'mx-auto max-w-screen-md p-3' : 'mx-auto max-w-screen-xl p-3'}>
               <div className="flex flex-wrap justify-center">
                 {/* <div className="card bg-base-100 w-max shadow-xl">
                   <div className="card-body">

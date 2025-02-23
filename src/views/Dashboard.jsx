@@ -29,14 +29,16 @@ export default function Dashboard()
           for (const item of jsonData) {
 
             const docItem = {
-                'noInduk': item.noinduk,
+                'noInduk': item.noInduk,
                 'nama': item.nama,
-                'kodeKelas' : item.kode_kelas,
-                'koordinator' : '',
-                'ukuranKaos' : '',
+                'kodeKelas' : item.kodeKelas,
+                'koordinator' : item.koordinator,
+                'domisili' : `${item.domisili}`,
+                'ukuranKaos' : item.ukuranKaos,
+                'jenisKaos' : item.jenisKaos
             }
 
-            await setDoc(doc(db, 'students',item.noinduk), docItem);
+            await setDoc(doc(db, 'students',`doc-${item.noInduk}`), docItem);
             console.log(`${docItem.nama} berhasil di upload`);
           }
           
@@ -62,27 +64,23 @@ export default function Dashboard()
     }
 
     useEffect(()=>{
-        getData();
+        //getData();
     },[])
 
 
     return (
         <>
-            <div className="navbar bg-base-100 shadow-lg">
-                <a className="btn btn-ghost text-xl">Admin</a>
-            </div>
             {/* Open the modal using document.getElementById('ID').showModal() method */}
             <div className="mx-auto max-w-screen-xl">
                 <div className="flex my-4 flex-row align-middle">
                     <Link to={'/'} className="btn btn-secondary" >Kembali</Link>
-                    {/* <button className="btn btn-primary m-1" onClick={()=>document.getElementById('modalAddFromFile').showModal()}>Tambah File</button> */}
+                    <button className="btn btn-primary m-1" onClick={()=>document.getElementById('modalAddFromFile').showModal()}>Tambah File</button>
                     <button type="button" className="btn m-1 btn-success" onClick={()=> document.getElementById('modalAddOne').showModal()}>Tambah Data</button>
                     <button type="button" onClick={()=> exportToExcel()} className="btn btn-primary">Export</button>
                 </div>
                 <dialog id="modalAddFromFile" className="modal modal-bottom sm:modal-middle">
                     <div className="modal-box">
                         <h3 className="font-bold text-lg">Upload File Excel</h3>
-                        <p className="py-4">Press ESC key or click the button below to close</p>
                         <div className="flex flex-row justify-between align-middle">
                             <div className="form-control">
                                 <label className="input input-bordered flex items-center gap-2">

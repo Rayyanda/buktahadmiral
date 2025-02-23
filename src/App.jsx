@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import RoutesIndex from './routes'
 import Navbar from './views/components/Navbar'
 import Footer from './views/components/Footer'
+import { isMobile, MobileOnlyView } from 'react-device-detect'
 //import './App.css'
 
 function App() {
@@ -13,11 +14,21 @@ function App() {
 
   return (
     <>
-      <div className="artboard overflow-auto phone-5 h-auto mx-auto bg-slate-600">
-        <Navbar/>
-        <RoutesIndex/>
-        <Footer/>
+        
+      {isMobile ? (
+        <div className="artboard overflow-auto phone-5 h-auto mx-auto bg-slate-600">
+          <Navbar/>
+          <RoutesIndex/>
+          <Footer/>
       </div>
+      ) : (
+        <>
+          <Navbar/>
+          <RoutesIndex/>
+          <Footer/>
+        </>
+      )}
+      
     </>
   )
 }

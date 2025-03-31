@@ -239,16 +239,16 @@ export default function Form()
                 </div>
                 <hr />
                 <h1 className="text-xl font-bold" >Pengajuan</h1>
-                <div className="flex flex-row my-2 align-text-top">
-                    <label className="input  input-bordered flex items-center gap-2 mr-2">
+                <div className="flex flex-row flex-wrap my-2 align-text-top">
+                    <label className="input  input-bordered flex items-center gap-2 mr-2 mb-2">
                         <span className="label">Nama Penerima</span>
                         <input type="text" value={namaPenerima} onChange={(e)=> setNamaPenerima(e.target.value)} className="" placeholder="......" />
                     </label>
-                    <label className="input  input-bordered flex items-center gap-2 mr-2">
+                    <label className="input  input-bordered flex items-center gap-2 mr-2 mb-2">
                         <span className="label">No. Wa</span>
                         <input type="text" className="" value={nomorPenerima} onChange={(e)=> setNomorPenerima(e.target.value)}  placeholder="0812xxxxx" />
                     </label>
-                    <label className="input  input-bordered flex items-center gap-2 mr-2">
+                    <label className="input  input-bordered flex items-center gap-2 mr-2 mb-2">
                         <span className="label">Tanggal Pengambilan </span>
                         <input type="date" value={tanggalPengambilan} onChange={(e)=> setTanggalPengambilan(e.target.value)} className="" placeholder="URL" />
                     </label>

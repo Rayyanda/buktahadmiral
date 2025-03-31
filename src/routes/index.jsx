@@ -6,6 +6,8 @@ import Dashboard from "../views/Dashboard";
 import LandingPage from "../views/Landing";
 import Preview from "../views/buktah/Preview";
 import Kaos from "../views/buktah/Kaos";
+import Form from "../views/pengambilan/Form";
+import Ajuan from "../views/pengambilan/Ajuan";
 
 export default function RoutesIndex()
 {
@@ -28,6 +30,12 @@ export default function RoutesIndex()
 
             {/* Dashboard */}
             <Route path="/dashboard" element={<Dashboard />} />
+
+            {/* Form */}
+            <Route path="/form" element={<Form />} />
+
+            {/* Data Pengambilan */}
+            <Route path="/pengambilan" element={<Ajuan />} />
 
        </Routes>
     )

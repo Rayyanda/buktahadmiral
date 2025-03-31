@@ -26,6 +26,8 @@ export default function Navbar()
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                         <li><Link to={'/'} >Homepage</Link></li>
                         <li><Link to={'/students'} >Data Admiral</Link></li>
+                        <li><Link to={'/form'} >Form Pengambilan</Link></li>
+                        <li><Link to={'/pengambilan'} >Ajuan Pengambilan</Link></li>
                         <li><a>About</a></li>
                     </ul>
                     </div>

@@ -29,7 +29,7 @@ export default function Dashboard()
           for (const item of jsonData) {
 
             const docItem = {
-                'noInduk': item.noInduk,
+                'noInduk': `${item.noInduk}`,
                 'nama': item.nama,
                 'kodeKelas' : item.kodeKelas,
                 'koordinator' : item.koordinator,
